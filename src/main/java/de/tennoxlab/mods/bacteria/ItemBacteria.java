@@ -13,7 +13,7 @@ public class ItemBacteria extends Item implements IItemWithName {
 		setUnlocalizedName(Bacteria.MODID + "-" + name);
 
 		maxStackSize = 64;
-		setCreativeTab(CreativeTabs.tabMisc);
+		setCreativeTab(CreativeTabs.MISC);
 	}
 
 	@Override

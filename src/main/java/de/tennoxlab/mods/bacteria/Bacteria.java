@@ -1,8 +1,5 @@
 package de.tennoxlab.mods.bacteria;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.item.Item;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -15,8 +12,10 @@ import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent.MissingMappin
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod(modid = Bacteria.MODID, version = Bacteria.VERSION)
 public class Bacteria {
@@ -86,8 +85,8 @@ public class Bacteria {
 
 	@SubscribeEvent
 	public void onPickup(EntityItemPickupEvent event) {
-		if (event.item.getEntityItem().getItem() == bacteriaBunch)
-			event.entityPlayer.addStat(bacteriaAchievement, 1);
+		if (event.getItem().getEntityItem().getItem() == bacteriaBunch)
+			event.getEntityPlayer().addStat(bacteriaAchievement, 1);
 	}
 
 	@SubscribeEvent

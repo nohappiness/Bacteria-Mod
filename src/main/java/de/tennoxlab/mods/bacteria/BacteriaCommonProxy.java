@@ -1,7 +1,5 @@
 package de.tennoxlab.mods.bacteria;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,6 +12,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.ArrayList;
 
 public class BacteriaCommonProxy {
 	public void registerRenderInformation() {
@@ -48,14 +48,13 @@ public class BacteriaCommonProxy {
 
 					int id = Integer.parseInt(s);
 					Block block = Block.getBlockById(id);
-					if (block == Blocks.air) {
+					if (block == Blocks.AIR) {
 						Bacteria.logger.error("Error while parsing blacklist: ID " + id + " is not a valid block!");
 					} else {
-						Bacteria.blacklist.add(new Food(block.getStateFromMeta(meta)));
+						Bacteria.blacklist.add(new Food(block.getStateFromMeta(meta))); //TODO: blacklist independant of meta
 					}
 				} catch (NumberFormatException e) {
 					Bacteria.logger.error("Error while parsing blacklist: '" + s + "' is not a valid number!");
-					continue;
 				}
 			}
 		}
@@ -73,35 +72,35 @@ public class BacteriaCommonProxy {
 	}
 
 	public void init(FMLInitializationEvent event) {
-		GameRegistry.addRecipe(new ItemStack(Bacteria.jammer, 1), new Object[] { "+#+", "#*#", "+-+",
-				Character.valueOf('#'), Bacteria.bacteria, Character.valueOf('*'), Items.iron_ingot,
-				Character.valueOf('-'), Blocks.redstone_torch, Character.valueOf('+'), Blocks.cobblestone });
-		GameRegistry.addRecipe(new ItemStack(Bacteria.jammerItem, 1), new Object[] { " # ", "#*#", " - ",
-				Character.valueOf('#'), Bacteria.bacteria, Character.valueOf('*'), Items.iron_ingot,
-				Character.valueOf('-'), Blocks.redstone_torch });
-		GameRegistry.addRecipe(new ItemStack(Bacteria.bacteria, 1), new Object[] { " # ", "#*#", " # ",
-				Character.valueOf('#'), Bacteria.bacteriaBunch, Character.valueOf('*'), Blocks.redstone_torch });
-		GameRegistry.addRecipe(new ItemStack(Bacteria.replacer, 1), new Object[] { " # ", "#*#", " # ",
-				Character.valueOf('#'), Bacteria.bacteriaBunch, Character.valueOf('*'), Items.coal });
-		GameRegistry.addRecipe(new ItemStack(Bacteria.must, 1), new Object[] { "+*+", " # ",
-				Character.valueOf('+'), Items.bread, Character.valueOf('#'), Items.water_bucket, Character.valueOf('*'), Blocks.sponge });
-		GameRegistry.addRecipe(new ItemStack(Blocks.sponge, 2), new Object[] { "+*+", "*+*", "+#+",
-				Character.valueOf('+'), Blocks.wool, Character.valueOf('#'), Items.water_bucket,
-				Character.valueOf('*'), Blocks.yellow_flower });
+		GameRegistry.addRecipe(new ItemStack(Bacteria.jammer, 1), "+#+", "#*#", "+-+",
+				Character.valueOf('#'), Bacteria.bacteria, Character.valueOf('*'), Items.IRON_INGOT,
+				Character.valueOf('-'), Blocks.REDSTONE_TORCH, Character.valueOf('+'), Blocks.COBBLESTONE);
+		GameRegistry.addRecipe(new ItemStack(Bacteria.jammerItem, 1), " # ", "#*#", " - ",
+				Character.valueOf('#'), Bacteria.bacteria, Character.valueOf('*'), Items.IRON_INGOT,
+				Character.valueOf('-'), Blocks.REDSTONE_TORCH);
+		GameRegistry.addRecipe(new ItemStack(Bacteria.bacteria, 1), " # ", "#*#", " # ",
+				Character.valueOf('#'), Bacteria.bacteriaBunch, Character.valueOf('*'), Blocks.REDSTONE_TORCH);
+		GameRegistry.addRecipe(new ItemStack(Bacteria.replacer, 1), " # ", "#*#", " # ",
+				Character.valueOf('#'), Bacteria.bacteriaBunch, Character.valueOf('*'), Items.COAL);
+		GameRegistry.addRecipe(new ItemStack(Bacteria.must, 1), "+*+", " # ",
+				Character.valueOf('+'), Items.BREAD, Character.valueOf('#'), Items.WATER_BUCKET, Character.valueOf('*'), Blocks.SPONGE);
+		GameRegistry.addRecipe(new ItemStack(Blocks.SPONGE, 2), "+*+", "*+*", "+#+",
+				Character.valueOf('+'), Blocks.WOOL, Character.valueOf('#'), Items.WATER_BUCKET,
+				Character.valueOf('*'), Blocks.YELLOW_FLOWER);
 
-		GameRegistry.addRecipe(new ItemStack(Blocks.sponge, 2), new Object[] { "+*+", "*+*", "+#+",
-				Character.valueOf('+'), Blocks.wool, Character.valueOf('#'), Items.water_bucket,
-				Character.valueOf('*'), Blocks.yellow_flower });
+		GameRegistry.addRecipe(new ItemStack(Blocks.SPONGE, 2), "+*+", "*+*", "+#+",
+				Character.valueOf('+'), Blocks.WOOL, Character.valueOf('#'), Items.WATER_BUCKET,
+				Character.valueOf('*'), Blocks.YELLOW_FLOWER);
 
-		GameRegistry.addShapelessRecipe(new ItemStack(Bacteria.bacteriaPotion, 1), Items.potionitem, Items.nether_wart, Bacteria.bacteriaBunch);
+		GameRegistry.addShapelessRecipe(new ItemStack(Bacteria.bacteriaPotion, 1), Items.POTIONITEM, Items.NETHER_WART, Bacteria.bacteriaBunch);
 
 		// Achievements //
-		Bacteria.mustAchievement = new Achievement("bacteriamod.must", "tennox_bacteria-must", 5, -2, Bacteria.must, AchievementList.buildWorkBench).registerAchievement();
-		Bacteria.bacteriaAchievement = new Achievement("bacteriamod.bacteria", "tennox_bacteria-bacteria", 5, -3, Bacteria.bacteriaBunch, Bacteria.mustAchievement).registerAchievement();
+		Bacteria.mustAchievement = new Achievement("bacteriamod.must", "tennox_bacteria-must", 5, -2, Bacteria.must, AchievementList.BUILD_WORK_BENCH).registerStat();
+		Bacteria.bacteriaAchievement = new Achievement("bacteriamod.bacteria", "tennox_bacteria-bacteria", 5, -3, Bacteria.bacteriaBunch, Bacteria.mustAchievement).registerStat();
 		Bacteria.bacteriumAchievement = new Achievement("bacteriamod.bacterium", "tennox_bacteria-bacterium", 5, -4, Bacteria.bacteria, Bacteria.bacteriaAchievement)
-				.setSpecial().registerAchievement();
+				.setSpecial().registerStat();
 		Bacteria.jamAchievement = new Achievement("bacteriamod.jammer", "tennox_bacteria-jammer", 5, -5, Bacteria.jammerItem, Bacteria.bacteriumAchievement)
-			.setSpecial().registerAchievement();
+			.setSpecial().registerStat();
 
 		GameRegistry.registerTileEntity(TileEntityBacteria.class, "bacteria_tileentity");
 		GameRegistry.registerTileEntity(TileEntityBacteriaReplacer.class, "replacer_tileentity");

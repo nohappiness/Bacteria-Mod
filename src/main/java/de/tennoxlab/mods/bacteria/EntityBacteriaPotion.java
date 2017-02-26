@@ -4,10 +4,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionType;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 class EntityBacteriaPotion extends EntityPotion {
@@ -21,9 +21,9 @@ class EntityBacteriaPotion extends EntityPotion {
 	}
 
 	@Override
-	protected void onImpact(MovingObjectPosition objpos) {
+	protected void onImpact(RayTraceResult objpos) { //TODO: adapt
 		BlockPos pos = objpos.getBlockPos();
-		if (objpos.typeOfHit == MovingObjectType.BLOCK) { // RenderPotion
+		if (objpos.typeOfHit == RayTraceResult.Type.BLOCK) { // RenderPotion
 			IBlockState state = worldObj.getBlockState(pos);
 
 			if (TileEntityBacteria.isValidFood(state)) {
@@ -38,13 +38,8 @@ class EntityBacteriaPotion extends EntityPotion {
 				}
 			}
 
-			this.worldObj.playAuxSFX(2002, this.getPosition(), this.getPotionDamage());
+			this.worldObj.playEvent(2002, this.getPosition(), PotionType.getID(potiontype));
 			this.setDead();
 		}
-	}
-
-	@Override
-	public int getPotionDamage() { // 6,8,12 //TODO what is this? comment this please. (magic numbers :P)
-		return 12;
 	}
 }
