@@ -15,7 +15,7 @@ public class ItemBacteriaPotion extends Item implements IItemWithName {
 		GameRegistry.registerItem(this, name);
 		setUnlocalizedName(Bacteria.MODID + "-" + name);
 		
-		setCreativeTab(CreativeTabs.MISC);
+		setCreativeTab(CreativeTabs.tabMisc);
 	}
 
 	@Override

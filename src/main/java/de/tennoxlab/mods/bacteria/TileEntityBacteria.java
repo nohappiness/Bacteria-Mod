@@ -1,17 +1,17 @@
 package de.tennoxlab.mods.bacteria;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.ITickable;
-import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TileEntityBacteria extends TileEntity implements ITickable {
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+
+public class TileEntityBacteria extends TileEntity implements IUpdatePlayerListBox {
 
 	IBlockState bacteriaBlock;
 	ArrayList<Food> food;
@@ -31,7 +31,7 @@ public class TileEntityBacteria extends TileEntity implements ITickable {
 	}
 
 	@Override
-	public void tick() {
+	public void update() {
 		if (worldObj.isRemote)
 			return;
 		if (Bacteria.jamcolonies.contains(Integer.valueOf(colony)) || Bacteria.jam_all) {
@@ -70,7 +70,7 @@ public class TileEntityBacteria extends TileEntity implements ITickable {
 		IBlockState state;
 		BlockPos pos = this.getPos().up();
 
-		while ((state = worldObj.getBlockState(pos)).getBlock() != Blocks.AIR) {
+		while ((state = worldObj.getBlockState(pos)).getBlock() != Blocks.air) {
 			addFood(state);
 			pos = pos.up();
 		}
@@ -82,7 +82,7 @@ public class TileEntityBacteria extends TileEntity implements ITickable {
 	}
 
 	public static boolean isValidFood(IBlockState state) {
-		if (state.getBlock() == Blocks.BEDROCK || state.getBlock() == Bacteria.bacteria)
+		if (state.getBlock() == Blocks.bedrock || state.getBlock() == Bacteria.bacteria)
 			return false;
 		return true;
 	}
@@ -117,10 +117,10 @@ public class TileEntityBacteria extends TileEntity implements ITickable {
 		return true;
 	}
 
-	Food grassFood = new Food(Blocks.GRASS.getDefaultState());
-	Food dirtFood = new Food(Blocks.DIRT.getDefaultState());
-	Food waterFood = new Food(Blocks.WATER.getDefaultState());
-	Food flowingWaterFood = new Food(Blocks.FLOWING_WATER.getDefaultState());
+	Food grassFood = new Food(Blocks.grass.getDefaultState());
+	Food dirtFood = new Food(Blocks.dirt.getDefaultState());
+	Food waterFood = new Food(Blocks.water.getDefaultState());
+	Food flowingWaterFood = new Food(Blocks.flowing_water.getDefaultState());
 
 	public boolean isFood(IBlockState state) {
 		if (Bacteria.jamcolonies.contains(Integer.valueOf(colony)))
@@ -158,20 +158,20 @@ public class TileEntityBacteria extends TileEntity implements ITickable {
 		if (state == f.state)
 			return true;
 
-		else if (state == Blocks.DIRT.getDefaultState()) // dirt == grass
-			return f.state == Blocks.GRASS.getDefaultState();
-		else if (state == Blocks.GRASS.getDefaultState())
-			return f.state == Blocks.DIRT.getDefaultState();
+		else if (state == Blocks.dirt.getDefaultState()) // dirt == grass
+			return f.state == Blocks.grass.getDefaultState();
+		else if (state == Blocks.grass.getDefaultState())
+			return f.state == Blocks.dirt.getDefaultState();
 
-		else if (state == Blocks.WATER.getDefaultState()) // water == flowing water
-			return f.state == Blocks.FLOWING_WATER.getDefaultState();
-		else if (state == Blocks.FLOWING_WATER.getDefaultState())
-			return f.state == Blocks.WATER.getDefaultState();
+		else if (state == Blocks.water.getDefaultState()) // water == flowing water
+			return f.state == Blocks.flowing_water.getDefaultState();
+		else if (state == Blocks.flowing_water.getDefaultState())
+			return f.state == Blocks.water.getDefaultState();
 
-		else if (state == Blocks.LAVA.getDefaultState()) // lava == flowing lava
-			return f.state == Blocks.FLOWING_LAVA.getDefaultState();
-		else if (state == Blocks.FLOWING_LAVA.getDefaultState())
-			return f.state == Blocks.LAVA.getDefaultState();
+		else if (state == Blocks.lava.getDefaultState()) // lava == flowing lava
+			return f.state == Blocks.flowing_lava.getDefaultState();
+		else if (state == Blocks.flowing_lava.getDefaultState())
+			return f.state == Blocks.lava.getDefaultState();
 
 		return false;
 	}
@@ -200,7 +200,7 @@ public class TileEntityBacteria extends TileEntity implements ITickable {
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 
 		nbt.setInteger("colony", colony);
@@ -213,7 +213,6 @@ public class TileEntityBacteria extends TileEntity implements ITickable {
 			nbt.setInteger("food" + j, id);
 			nbt.setInteger("food_meta" + j, bs.getBlock().getMetaFromState(bs));
 		}
-		return nbt;
 	}
 }
 

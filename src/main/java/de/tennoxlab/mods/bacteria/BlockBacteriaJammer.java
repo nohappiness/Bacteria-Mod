@@ -10,11 +10,11 @@ public class BlockBacteriaJammer extends Block implements IBlockWithName {
 	private final String name = "jammer";
 
 	public BlockBacteriaJammer() {
-		super(Material.ROCK);
+		super(Material.rock);
 		GameRegistry.registerBlock(this, name);
 		setUnlocalizedName(Bacteria.MODID + "-" + name);
 
-		setCreativeTab(CreativeTabs.MISC);
+		setCreativeTab(CreativeTabs.tabMisc);
 		setHardness(0.5F);
 	}
 

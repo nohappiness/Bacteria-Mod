@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 
 public class TileEntityBacteriaReplacer extends TileEntityBacteria {
 	Food replace;
@@ -22,7 +22,7 @@ public class TileEntityBacteriaReplacer extends TileEntityBacteria {
 		if (worldObj.isBlockIndirectlyGettingPowered(getPos()) > 0) {
 			IBlockState above = worldObj.getBlockState(getPos().up());
 			IBlockState below = worldObj.getBlockState(getPos().down());
-			if (above.getBlock() == Blocks.AIR || below.getBlock() == Blocks.AIR)
+			if (above.getBlock() == Blocks.air || below.getBlock() == Blocks.air)
 				return;
 			if (above.getBlock() == Bacteria.replacer || below.getBlock() == Bacteria.replacer)
 				return;
@@ -72,13 +72,12 @@ public class TileEntityBacteriaReplacer extends TileEntityBacteria {
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 
 		if (replace != null) {
 			nbt.setInteger("replace", Block.getIdFromBlock(replace.state.getBlock()));
 			nbt.setInteger("replace_meta", replace.state.getBlock().getMetaFromState(replace.state));
 		}
-        return nbt;
-    }
+	}
 }
