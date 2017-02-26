@@ -1,4 +1,4 @@
-package tennox.bacteriamod;
+package de.tennoxlab.mods.bacteria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class Bacteria {
 	@Mod.Instance
 	public static Bacteria instance;
 
-	@SidedProxy(clientSide = "tennox.bacteriamod.BacteriaClientProxy", serverSide = "tennox.bacteriamod.BacteriaCommonProxy")
+	@SidedProxy(clientSide = "de.tennoxlab.mods.bacteria.BacteriaClientProxy", serverSide = "de.tennoxlab.mods.bacteria.BacteriaCommonProxy")
 	public static BacteriaCommonProxy proxy;
 
 	public static Logger logger;

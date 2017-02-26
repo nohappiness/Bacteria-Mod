@@ -1,6 +1,5 @@
-package tennox.bacteriamod;
+package de.tennoxlab.mods.bacteria;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;

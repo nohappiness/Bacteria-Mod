@@ -1,4 +1,4 @@
-package tennox.bacteriamod;
+package de.tennoxlab.mods.bacteria;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;

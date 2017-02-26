@@ -1,4 +1,4 @@
-package tennox.bacteriamod;
+package de.tennoxlab.mods.bacteria;
 
 import java.util.ArrayList;
 

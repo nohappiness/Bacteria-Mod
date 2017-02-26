@@ -1,6 +1,4 @@
-package tennox.bacteriamod;
-
-import java.util.ArrayList;
+package de.tennoxlab.mods.bacteria;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -9,13 +7,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockBacteria extends BlockContainer implements IBlockWithName {
+public class BlockBacteriaReplace extends BlockContainer implements IBlockWithName {
+	private static final String name = "replacer";
 
-	public static final String name = "bacteria";
-
-	ArrayList<Integer> food = new ArrayList<Integer>();
-
-	protected BlockBacteria() {
+	protected BlockBacteriaReplace() {
 		super(Material.rock);
 		GameRegistry.registerBlock(this, name);
 		setUnlocalizedName(Bacteria.MODID + "-" + name);
@@ -32,7 +27,7 @@ public class BlockBacteria extends BlockContainer implements IBlockWithName {
 
 	@Override
 	public TileEntity createNewTileEntity(World w, int i) {
-		return new TileEntityBacteria();
+		return new TileEntityBacteriaReplacer();
 	}
 
 	@Override

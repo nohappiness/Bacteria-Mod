@@ -1,4 +1,4 @@
-package tennox.bacteriamod;
+package de.tennoxlab.mods.bacteria;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -6,7 +6,6 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BacteriaClientProxy extends BacteriaCommonProxy {
 	@Override
