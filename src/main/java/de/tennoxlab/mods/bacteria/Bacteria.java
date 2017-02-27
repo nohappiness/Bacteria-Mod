@@ -20,7 +20,7 @@ import java.util.List;
 @Mod(modid = Bacteria.MODID, version = Bacteria.VERSION)
 public class Bacteria {
 	public static final String MODID = "tennox_bacteria";
-	public static final String VERSION = "1.9.4-3.0.0";
+	public static final String VERSION = "1.8.9-2.6.0.0";
 
 	@Mod.Instance
 	public static Bacteria instance;
