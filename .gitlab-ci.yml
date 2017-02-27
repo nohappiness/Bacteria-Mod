@@ -1,0 +1,19 @@
+image: java:7-jdk-alpine
+
+stages:
+  - build
+
+build jar:
+  stage: build
+  before_script:
+    - apk add --no-cache bash  # required by gradle
+    - ./gradlew setupCiWorkspace
+  script:
+    - ./gradlew build
+  after_script:
+    - rm *.jar  # just to be safe
+    - cp build/libs/*.jar .
+  artifacts:
+    expire_in: 3 mos
+    paths:
+      - *.jar
