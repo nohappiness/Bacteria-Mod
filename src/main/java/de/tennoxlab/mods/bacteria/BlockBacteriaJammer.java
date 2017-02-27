@@ -1,11 +1,8 @@
-package tennox.bacteriamod;
+package de.tennoxlab.mods.bacteria;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockBacteriaJammer extends Block implements IBlockWithName {

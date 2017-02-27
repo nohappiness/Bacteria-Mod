@@ -1,21 +1,17 @@
-package tennox.bacteriamod;
+package de.tennoxlab.mods.bacteria;
 
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -40,12 +36,14 @@ public class BlockMust extends Block implements IBlockWithName {
 		setDefaultState(blockState.getBaseState().withProperty(GROWN, 0));
 	}
 
+
 	// BlockCrops
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if (!world.isRemote) {
 			Block above = world.getBlockState(pos.up()).getBlock();
 			int meta = (Integer) state.getValue(GROWN);
+			int metaBefore = meta;
 
 			if (meta >= MAX_GROW_INDEX)
 				return; // already fully grown
@@ -56,16 +54,16 @@ public class BlockMust extends Block implements IBlockWithName {
 				meta++;
 			if (above != Blocks.flowing_water && above != Blocks.water)
 				meta = 0;
-			Bacteria.logger.info("Must at " + pos + " updates meta from " + state.getValue(GROWN) + " to " + meta);
-			world.setBlockState(pos, blockState.getBaseState().withProperty(GROWN, meta));
+			if(meta != metaBefore) {
+				world.setBlockState(pos, blockState.getBaseState().withProperty(GROWN, meta));
+				Bacteria.logger.debug("Must at " + pos + " updates meta from " + state.getValue(GROWN) + " to " + meta + " (above=" + above + ")");
+			}
 		}
 	}
 
 	@Override
 	public int quantityDropped(Random random) {
-		boolean prevDrop = drop;
-		drop = true;
-		return prevDrop ? 1 : 0;
+		return 1 + random.nextInt(2); // 1-3 items
 	}
 
 	// Block

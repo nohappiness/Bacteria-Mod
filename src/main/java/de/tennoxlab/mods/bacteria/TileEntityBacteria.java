@@ -1,4 +1,4 @@
-package tennox.bacteriamod;
+package de.tennoxlab.mods.bacteria;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -7,11 +7,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ITickable;
 
-public class TileEntityBacteria extends TileEntity implements IUpdatePlayerListBox {
+public class TileEntityBacteria extends TileEntity implements ITickable {
 
 	IBlockState bacteriaBlock;
 	ArrayList<Food> food;
