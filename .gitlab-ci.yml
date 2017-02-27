@@ -14,7 +14,7 @@ build jar:
   script:
     - './gradlew build'
   after_script:
-    - 'rm *.jar'  # just to be safe
+    - 'find . -name "*.jar" -maxdepth 1 -print -delete'  # just to be safe
     - 'cp build/libs/*.jar .'
   artifacts:
     expire_in: 3 mos
