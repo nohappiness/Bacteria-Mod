@@ -5,6 +5,9 @@ stages:
 
 build jar:
   stage: build
+  cache:
+    paths:
+      - '.gradle/'
   before_script:
     - 'apk add --no-cache bash'  # required by gradle
     - './gradlew setupCiWorkspace'
