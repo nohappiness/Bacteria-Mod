@@ -96,12 +96,12 @@ public class BacteriaCommonProxy {
 		GameRegistry.addShapelessRecipe(new ItemStack(Bacteria.bacteriaPotion, 1), Items.potionitem, Items.nether_wart, Bacteria.bacteriaBunch);
 
 		// Achievements //
-		Bacteria.mustAchievement = new Achievement("bacteriamod.must", "tennox_bacteria-must", 5, -2, Bacteria.must, AchievementList.buildWorkBench).registerAchievement();
-		Bacteria.bacteriaAchievement = new Achievement("bacteriamod.bacteria", "tennox_bacteria-bacteria", 5, -3, Bacteria.bacteriaBunch, Bacteria.mustAchievement).registerAchievement();
+		Bacteria.mustAchievement = new Achievement("bacteriamod.must", "tennox_bacteria-must", 5, -2, Bacteria.must, AchievementList.buildWorkBench).registerStat();
+		Bacteria.bacteriaAchievement = new Achievement("bacteriamod.bacteria", "tennox_bacteria-bacteria", 5, -3, Bacteria.bacteriaBunch, Bacteria.mustAchievement).registerStat();
 		Bacteria.bacteriumAchievement = new Achievement("bacteriamod.bacterium", "tennox_bacteria-bacterium", 5, -4, Bacteria.bacteria, Bacteria.bacteriaAchievement)
-				.setSpecial().registerAchievement();
+				.setSpecial().registerStat();
 		Bacteria.jamAchievement = new Achievement("bacteriamod.jammer", "tennox_bacteria-jammer", 5, -5, Bacteria.jammerItem, Bacteria.bacteriumAchievement)
-			.setSpecial().registerAchievement();
+			.setSpecial().registerStat();
 
 		GameRegistry.registerTileEntity(TileEntityBacteria.class, "bacteria_tileentity");
 		GameRegistry.registerTileEntity(TileEntityBacteriaReplacer.class, "replacer_tileentity");
