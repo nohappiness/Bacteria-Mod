@@ -109,7 +109,7 @@ public class TileEntityBacteria extends TileEntity implements ITickable {
 	}
 
 	public boolean isAtBorder(BlockPos pos) { // Block
-		while (worldObj.getBlockState(pos) != Block.getBlockFromName(Bacteria.isolation)) {
+		while (worldObj.getBlockState(pos).getBlock() != Block.getBlockFromName(Bacteria.isolation)) {
 			if (pos.getY() >= worldObj.getActualHeight())
 				return false;
 			pos = pos.up(); // TODO: improve by reusing BlockPos instances (maybe MutableBlockPos?)
